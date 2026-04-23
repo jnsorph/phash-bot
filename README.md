@@ -27,8 +27,7 @@ In the Discord Developer Portal, enable:
 
 ```bash
 git clone https://github.com/jnsorph/phash-bot
-git clone 
-cd phash
+cd phash-bot
 ```
 
 ### 2. Install dependencies
