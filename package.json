@@ -24,7 +24,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "node --conditions=development --import tsx --watch src/index.ts",
-		"build": "swc src -d dist",
+		"build": "rimraf dist && swc src -d dist --copy-files --strip-leading-paths",
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
@@ -48,6 +48,7 @@
 		"eslint-config-prettier": "^10.1.8",
 		"globals": "^17.5.0",
 		"prettier": "^3.8.3",
+		"rimraf": "^6.1.3",
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.59.0"
