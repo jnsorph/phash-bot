@@ -1,0 +1,29 @@
+{
+  "name": "phash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "exports": {
+    "main": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^25.6.0",
+    "discord.js": "^14.26.3",
+    "dotenv": "^17.4.2",
+    "file-type": "^16.5.4",
+    "ioredis": "^5.10.1",
+    "sharp": "^0.34.5",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}
