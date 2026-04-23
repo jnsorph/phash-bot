@@ -67,6 +67,7 @@ PHASH_TRESHOLD=10
 Notes:
 
 - `DISCORD_TOKEN` is required.
+- `ALERT_CHANNEL_ID` specifies the channel ID where deletion alerts are sent.
 - `REDIS_URL` defaults to `redis://localhost:6379` if omitted.
 - `PHASH_TRESHOLD` controls how similar two hashes may be before an image counts as suspicious.
 
