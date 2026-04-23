@@ -60,6 +60,7 @@ Then edit `.env` and add:
 
 ```env
 DISCORD_TOKEN=your-bot-token
+ALERT_CHANNEL_ID=your-channel-id
 REDIS_URL=redis://localhost:6379
 PHASH_TRESHOLD=10
 ```
