@@ -26,7 +26,8 @@ In the Discord Developer Portal, enable:
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/jnsorph/phash-bot
+git clone 
 cd phash
 ```
 
