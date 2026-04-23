@@ -1,6 +1,11 @@
-import { HashRepository } from "./hash.repository.js";
-import { hammingDistance } from "../../utils/phash.js";
-import { env } from "../../config/env.js";
+/**
+ * Checks given image hashes against known scam hashes and decides if an image is a scam.
+ * Author: Jonas Pape, 2026
+ */
+
+import { HashRepository } from '#@/modules/moderation/hash.repository';
+import { hammingDistance } from '#@/utils/phash';
+import { env } from '#@/config/env';
 
 export class ScamDetectionService {
 	constructor(private repo: HashRepository) {}

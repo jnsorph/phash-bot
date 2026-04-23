@@ -1,4 +1,9 @@
-import { redis } from '../../infrastructure/redis.js';
+/**
+ * Repository for managing scam hashes in Redis.
+ * Author: Jonas Pape, 2026
+ */
+
+import { redis } from '#@/infrastructure/redis';
 
 const KEY = 'scam_hashes';
 
@@ -8,46 +13,21 @@ export type ScamHashEntry = {
 };
 
 export class HashRepository {
-	private async ensureHashStorage(): Promise<void> {
-		const type = await redis.type(KEY);
-
-		if (type !== 'set') {
-			return;
-		}
-
-		const legacyHashes = await redis.smembers(KEY);
-		await redis.del(KEY);
-
-		if (legacyHashes.length === 0) {
-			return;
-		}
-
-		const pipeline = redis.pipeline();
-		for (const hash of legacyHashes) {
-			pipeline.hset(KEY, hash, '');
-		}
-
-		await pipeline.exec();
-	}
-
 	async add(hash: string, url: string): Promise<void> {
-		await this.ensureHashStorage();
 		await redis.hset(KEY, hash, url);
 	}
 
 	async remove(hash: string): Promise<void> {
-		await this.ensureHashStorage();
 		await redis.hdel(KEY, hash);
 	}
 
 	async getAll(): Promise<string[]> {
 		const entries = await this.getAllEntries();
-		return entries.map(entry => entry.hash);
+		return entries.map((entry) => entry.hash);
 	}
 
 	async getAllEntries(): Promise<ScamHashEntry[]> {
-		await this.ensureHashStorage();
 		const entries = await redis.hgetall(KEY);
-		return Object.entries(entries).map(([hash, url]) => ({ hash, url: String(url ?? "") }));
+		return Object.entries(entries).map(([hash, url]) => ({ hash, url: String(url ?? '') }));
 	}
 }

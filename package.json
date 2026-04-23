@@ -1,29 +1,55 @@
 {
-  "name": "phash",
-  "version": "1.0.0",
-  "main": "index.js",
-  "exports": {
-    "main": "./dist/index.js"
-  },
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@types/node": "^25.6.0",
-    "discord.js": "^14.26.3",
-    "dotenv": "^17.4.2",
-    "file-type": "^16.5.4",
-    "ioredis": "^5.10.1",
-    "sharp": "^0.34.5",
-    "typescript": "^6.0.3"
-  },
-  "devDependencies": {
-    "tsx": "^4.21.0"
-  }
+	"name": "phash-bot",
+	"description": "Discord moderation bot for detecting and blocking scam images with perceptual hashes.",
+	"repository": {
+		"url": "https://github.com/jnsorph/phash-bot"
+	},
+	"version": "1.0.0",
+	"license": "GPL-3.0-only",
+	"author": "Jonas Pape",
+	"main": "./dist/index.js",
+	"imports": {
+		"#@/*": {
+			"types": "./src/*.ts",
+			"development": "./src/*.ts",
+			"default": "./dist/*.js"
+		}
+	},
+	"exports": {
+		"main": "./dist/index.js"
+	},
+	"engines": {
+		"node": ">=20.20"
+	},
+	"type": "module",
+	"scripts": {
+		"dev": "node --conditions=development --import tsx --watch src/index.ts",
+		"build": "swc src -d dist",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"format": "prettier . --write",
+		"format:check": "prettier . --check",
+		"check": "npm run lint && npm run typecheck",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"discord.js": "^14.26.3",
+		"dotenv": "^17.4.2",
+		"ioredis": "^5.10.1",
+		"sharp": "^0.34.5"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.39.4",
+		"@swc/cli": "^0.6.0",
+		"@swc/core": "^1.13.5",
+		"@types/node": "^25.6.0",
+		"eslint": "^9.39.4",
+		"eslint-config-prettier": "^10.1.8",
+		"globals": "^17.5.0",
+		"prettier": "^3.8.3",
+		"tsx": "^4.21.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.0"
+	}
 }

@@ -1,7 +1,13 @@
-import { Client, GatewayIntentBits, Partials } from "discord.js";
-import { registerEvents } from "./events.js";
-import { env } from "../config/env.js";
-import { logger } from "../infrastructure/logger.js";
+/**
+ * Bot initialization and event and command registration.
+ * Author: Jonas Pape, 2026
+ */
+
+import { Client, GatewayIntentBits, Partials } from 'discord.js';
+import { registerEvents } from '#@/core/events';
+import { env } from '#@/config/env';
+import { logger } from '#@/infrastructure/logger';
+import { registerModerationCommands } from '#@/modules/moderation/moderation.commands';
 
 export function createBot() {
 	const client = new Client({
@@ -9,19 +15,17 @@ export function createBot() {
 			GatewayIntentBits.Guilds,
 			GatewayIntentBits.GuildMessages,
 			GatewayIntentBits.MessageContent,
-			GatewayIntentBits.GuildMembers,
-			GatewayIntentBits.GuildMessageReactions
+			GatewayIntentBits.GuildMembers
 		],
-		partials: [
-			Partials.Message,
-			Partials.Channel,
-			Partials.Reaction,
-			Partials.User
-		]
+		partials: [Partials.Message, Partials.Channel]
 	});
 
-	client.once('ready', () => {
-		logger.info('Logged in as', client.user?.tag);
+	client.once('clientReady', () => {
+		logger.success('Logged in as', client.user?.tag);
+		logger.info('Registering commands...');
+		registerModerationCommands(client).catch((error) => {
+			logger.error('Failed to register commands:', error);
+		});
 	});
 
 	registerEvents(client);
